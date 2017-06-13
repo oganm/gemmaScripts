@@ -81,7 +81,9 @@ outFile.write('\t'.join(['bmID',
 						 'factorCategoryUriFull',
 						 'factorUri',
 						 'factorUriFull',
-						 'factorCharacteristic', # sample
+						 'factorCharacteristic',
+						 'technologyType',
+						 'platformName', # sample
 						'eeID', 'eeName', 'taxon','eeCategory','eeCategoryUri','eeCategoryUriFull','eeAnnot','eeUri','eeUriFull']) # experiment 
 						+ '\n')
 outFile.flush()
@@ -96,8 +98,8 @@ for taxon in taxonCol:
 	experimentCol.extend(expressionExperimentService.findByTaxon(taxonObj))
 
 
-experiment = experimentCol[672]
-eeIndex = 672
+# experiment = experimentCol[672]
+# eeIndex = 672
 startFrom = 0
 # loop over experiments
 for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]):
@@ -107,9 +109,16 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 	# loadValueObject returns a ExpressionExperimentValueObject
 	eevo = expressionExperimentService.loadValueObject(experiment.id)
 	
+
 	# Sanity Check
 	if eevo.troubled:
 		continue
+	
+	arrayData = expressionExperimentService.getArrayDesignsUsed(experiment).toArray()
+	technoTypes = map(lambda x: x.getTechnologyType(), arrayData)
+	technoTypes = PPStripUnicode("|".join(map(lambda x: x.getValue(),technoTypes)))
+	platformName = PPStripUnicode("|".join(map(lambda x: x.getShortName(), arrayData)))
+	
 	
 	
 	# here lies the annotation data for the experiment
@@ -141,13 +150,15 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 			 eeAnnotCategoryUri,
 			 experimentAnnotations,
 			 briefURI,
-			 experimentAnnotURI]
+			 experimentAnnotURI,
+			 technoTypes,
+			 platformName]
 	
 	# here we loop over individual bio materials
 	bmCol = bioMaterialService.findByExperiment(experiment)
 	# bm = bmCol[3]
 	for i, bm in enumerate(bmCol):
-		print(i,end='')
+		# print(i,end='')
 		fvCol = bm.factorValues
 		
 		# characteristics = map(lambda x:x.characteristics,fvCol)
