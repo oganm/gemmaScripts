@@ -210,7 +210,7 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 		tempCol.extend(eeCol)
 		
 		# remove all tabs that may sneak into the columns
-		tempCol = [s.replace('\t','') for s in tempCol]
+		tempCol = map(lambda x:x.replace('\t',''), tempCol)
 		
 		outFile.write('\t'.join(PrettyPrint(tempCol)) + '\n')
 		outFile.flush()
