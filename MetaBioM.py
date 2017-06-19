@@ -13,11 +13,9 @@ import os
 import sys
 import re
 # from MetaBiomHelpers import *
-from ElapseTime import ElapseTime
+from ElapseTime import ElapseTime # non essential in Nat's directory
 from SpringSupport import SpringSupport
-from GetFields import *
-from PrettyPrint import *
-from MiscFunction import *
+from PrettyPrint import * # in Nat's directory
 from ubic.gemma.core.datastructure.matrix import ExpressionDataWriterUtils
 from ubic.gemma.model.genome.gene.phenotype.valueObject import CharacteristicValueObject
 
@@ -109,6 +107,7 @@ for taxon in taxonCol:
 # experiment = experimentCol[672]
 # eeIndex = 672
 startFrom = 0
+# experiment = experimentCol[240]
 # loop over experiments
 for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]):
 	print('\rCurrently: {0}/{1}: ID: {2}'.format(eeIndex+startFrom, len(experimentCol), experiment.id), end = '')
@@ -167,6 +166,7 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 	# bm = bmCol[3]
 	for i, bm in enumerate(bmCol):
 		# print(i,end='')
+		# print(i)
 		fvCol = bm.factorValues
 		
 		# characteristics = map(lambda x:x.characteristics,fvCol)
@@ -210,7 +210,7 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 		tempCol.extend(eeCol)
 		
 		# remove all tabs that may sneak into the columns
-		tempCol = map(lambda x:x.replace('\t',''), tempCol)
+		tempCol = map(lambda x: PPStripUnicode(x).replace('\t',''), tempCol)
 		
 		outFile.write('\t'.join(PrettyPrint(tempCol)) + '\n')
 		outFile.flush()
