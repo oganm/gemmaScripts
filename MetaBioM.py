@@ -81,10 +81,18 @@ outFile.write('\t'.join(['bmID',
 						 'factorCategoryUriFull',
 						 'factorUri',
 						 'factorUriFull',
-						 'factorCharacteristic',
+						 'factorCharacteristic', # sample info till here
+						 'eeID', 
+						 'eeName', 
+						 'taxon',
+						 'eeCategory',
+						 'eeCategoryUri',
+						 'eeCategoryUriFull',
+						 'eeAnnot',
+						 'eeUri',
+						 'eeUriFull',
 						 'technologyType',
-						 'platformName', # sample
-						'eeID', 'eeName', 'taxon','eeCategory','eeCategoryUri','eeCategoryUriFull','eeAnnot','eeUri','eeUriFull']) # experiment 
+						 'platformName',]) # experiment data till here
 						+ '\n')
 outFile.flush()
 
@@ -200,6 +208,10 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 				   factorCharacteristic]
 		
 		tempCol.extend(eeCol)
+		
+		# remove all tabs that may sneak into the columns
+		tempCol = [s.replace('\t','') for s in tempCol]
+		
 		outFile.write('\t'.join(PrettyPrint(tempCol)) + '\n')
 		outFile.flush()
 		
