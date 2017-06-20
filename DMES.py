@@ -27,6 +27,9 @@ valPassword = None
 outputFolder = 'Output/'
 globalTimer = ElapseTime()
 
+if not os.path.exists(outputFolder):
+    os.makedirs(outputFolder)
+
 if (cliOpts.u != None and cliOpts.p != None):
 	valUser = cliOpts.u
 	valPassword = cliOpts.p
