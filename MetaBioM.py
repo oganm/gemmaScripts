@@ -12,7 +12,7 @@ import argparse
 import os
 import sys
 import re
-import requests
+import requests # requests package used is 2.5.3. see https://stackoverflow.com/a/29154908/3273060 for explanation
 # from MetaBiomHelpers import *
 from ElapseTime import ElapseTime # non essential in Nat's directory
 from SpringSupport import SpringSupport
@@ -20,7 +20,7 @@ from PrettyPrint import * # in Nat's directory
 from ubic.gemma.core.datastructure.matrix import ExpressionDataWriterUtils
 from ubic.gemma.model.genome.gene.phenotype.valueObject import CharacteristicValueObject
 
-helperURL = "https://raw.githubusercontent.com/oganm/gemmaScripts/master/MetaBiomHelpers.py"
+helperURL = "https://raw.githubusercontent.com/oganm/gemmaScripts/master/MetaBiomHelpers.py" # run helpers from URL
 exec(requests.get(helperURL).content)
 # execfile('/home/omancarci/git repos/gemmaScripts/MetaBiomHelpers.py')
 
