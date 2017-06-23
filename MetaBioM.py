@@ -79,7 +79,10 @@ outFile.write('\t'.join(['bmID',
 						 'factorCategoryUriFull',
 						 'factorUri',
 						 'factorUriFull',
-						 'factorCharacteristic', # sample info till here
+						 'factorCharacteristic',
+						 'factorDescription',
+						 'broadCategory',
+						 'broadCategoryDescription', # sample info till here
 						 'eeID', 
 						 'eeName', 
 						 'taxon',
@@ -169,9 +172,16 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 		# print(i)
 		fvCol = bm.factorValues
 		
+		factorDescriptions = "|".join(map(lambda x:PPStripUnicode(x.getDescriptiveString()),fvCol))
+		broadCategory = "|".join(map(lambda x: PPStripUnicode(x.getExperimentalFactor().getName()), fvCol))
+		broadCategoryDescription = "|".join(map(lambda x: PPStripUnicode(x.getExperimentalFactor().getDescription()), fvCol))
+		
+		
+		
 		# characteristics = map(lambda x:x.characteristics,fvCol)
 		
 		factorData = map(lambda x: FVResolve(x),fvCol)
+		
 		
 		factorCategories = "|".join(map(lambda x: x['category'],factorData))
 		factorCategoryUri =  "|".join(map(lambda x: x['categoryUri'],factorData))
@@ -205,7 +215,10 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 				   factorCategoryUri,
 				   briefCharacteristicUri,
 				   factorCharacteristicUri,
-				   factorCharacteristic]
+				   factorCharacteristic,
+				   factorDescriptions,
+				   broadCategory,
+				   broadCategoryDescription]
 		
 		tempCol.extend(eeCol)
 		
