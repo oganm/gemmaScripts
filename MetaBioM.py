@@ -86,7 +86,7 @@ outFile.write('\t'.join(['bmID',
 						 'factorDescription',
 						 'broadCategory',
 						 'broadCategoryUri',
-						 'broadCategoryURiFull',
+						 'broadCategoryUriFull',
 						 'broadCategoryName',
 						 'broadCategoryDescription', # sample info till here
 						 'eeID', 
@@ -180,7 +180,7 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 		
 		broadCategory = "|".join(map(lambda x:PPStripUnicode(x.getExperimentalFactor().getCategory().getCategory()),fvCol))
 		broadCategoryUri =  "|".join(map(lambda x:BriefUri(PPStripUnicode(x.getExperimentalFactor().getCategory().getCategoryUri())),fvCol))
-		broadCategoryURiFull = "|".join(map(lambda x:PPStripUnicode(x.getExperimentalFactor().getCategory().getCategoryUri()),fvCol))
+		broadCategoryUriFull = "|".join(map(lambda x:PPStripUnicode(x.getExperimentalFactor().getCategory().getCategoryUri()),fvCol))
 		
 		factorDescriptions = "|".join(map(lambda x:PPStripUnicode(x.getDescriptiveString()),fvCol))
 		broadCategoryName = "|".join(map(lambda x: PPStripUnicode(x.getExperimentalFactor().getName()), fvCol))
