@@ -1,3 +1,5 @@
+import re
+
 def StripUnicode(obj):
 	if obj == None:
 		return 'None'
@@ -60,12 +62,12 @@ def FVResolve(fv):
 		factorUri = map(lambda x: StripUnicode(x.getValueUri()),charCol)
 		briefFactorUri = BriefUriVector(factorUri)
 		
-		category = ';'.join(category)
-		categoryUri = ';'.join(categoryUri)
-		briefCategoryUri = ';'.join(briefCategoryUri)
-		factorValue = ';'.join(factorValue)
-		factorUri = ';'.join(factorUri)
-		briefFactorUri = ';'.join(briefFactorUri)
+		category = ';'.join(re.sub(';',':',category))
+		categoryUri = ';'.join(re.sub(';',':',categoryUri))
+		briefCategoryUri = ';'.join(re.sub(';',':',briefCategoryUri))
+		factorValue = ';'.join(re.sub(';',':',factorValue))
+		factorUri = ';'.join(re.sub(';',':',factorUri))
+		briefFactorUri = ';'.join(re.sub(';',':',briefFactorUri))
 		
 		return {'category':category,
 				'categoryUri':categoryUri,
