@@ -123,9 +123,8 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 	sys.stdout.flush()
 	
 	# loadValueObject returns a ExpressionExperimentValueObject
-	eevo = expressionExperimentService.loadValueObject(experiment.id)
-	
-
+	# eevo = expressionExperimentService.loadValueObject(experiment.id)
+	eevo = expressionExperimentService.loadValueObject( expressionExperimentService.load(experiment.id))
 	# Sanity Check
 	if eevo.troubled:
 		continue
@@ -139,6 +138,8 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 	
 	# here lies the annotation data for the experiment
 	eeAnnot = expressionExperimentService.getAnnotations(experiment.id)
+	
+
 	
 	eeAnnotCategory = PrettyPrint(map(lambda x: x.getClassName(),eeAnnot))
 	eeAnnotCategoryUri = PrettyPrint(map(lambda x: x.getClassUri(),eeAnnot))
@@ -189,7 +190,6 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 		
 		
 		# characteristics = map(lambda x:x.characteristics,fvCol)
-		
 		factorData = map(lambda x: FVResolve(x),fvCol)
 		
 		
