@@ -62,12 +62,15 @@ def FVResolve(fv):
 		factorUri = map(lambda x: StripUnicode(x.getValueUri()),charCol)
 		briefFactorUri = BriefUriVector(factorUri)
 		
-		category = ';'.join(re.sub(';',':',category))
-		categoryUri = ';'.join(re.sub(';',':',categoryUri))
-		briefCategoryUri = ';'.join(re.sub(';',':',briefCategoryUri))
-		factorValue = ';'.join(re.sub(';',':',factorValue))
-		factorUri = ';'.join(re.sub(';',':',factorUri))
-		briefFactorUri = ';'.join(re.sub(';',':',briefFactorUri))
+		def escapeSemiCol(aList):
+			return map(lambda x:re.sub(';','_',x), aList)
+		
+		category = ';'.join(escapeSemiCol(category))
+		categoryUri = ';'.join(escapeSemiCol(categoryUri))
+		briefCategoryUri = ';'.join(escapeSemiCol(briefCategoryUri))
+		factorValue = ';'.join(escapeSemiCol(factorValue))
+		factorUri = ';'.join(escapeSemiCol(factorUri))
+		briefFactorUri = ';'.join(escapeSemiCol(briefFactorUri))
 		
 		return {'category':category,
 				'categoryUri':categoryUri,
