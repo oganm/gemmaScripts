@@ -113,7 +113,7 @@ for taxon in taxonCol:
 	experimentCol.extend(expressionExperimentService.findByTaxon(taxonObj))
 
 
-# experiment = experimentCol[672]
+# experiment = experimentCol[3794]
 # eeIndex = 672
 startFrom = 0
 # experiment = experimentCol[240]
@@ -122,11 +122,18 @@ for eeIndex, experiment in enumerate(experimentCol[startFrom:len(experimentCol)]
 	print('\rCurrently: {0}/{1}: ID: {2}'.format(eeIndex+startFrom, len(experimentCol), experiment.id), end = '')
 	sys.stdout.flush()
 	
+	if expressionExperimentService.isTroubled(experiment):
+		print("this is a troubled soul")
+		continue
+	
 	# loadValueObject returns a ExpressionExperimentValueObject
 	# eevo = expressionExperimentService.loadValueObject(experiment.id)
 	eevo = expressionExperimentService.loadValueObject( expressionExperimentService.load(experiment.id))
 	# Sanity Check
-	if eevo.troubled:
+
+	
+	if eevo is None:
+		print("this is a weird one mate")
 		continue
 	
 	arrayData = expressionExperimentService.getArrayDesignsUsed(experiment).toArray()
